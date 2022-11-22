@@ -1,0 +1,171 @@
+{% extends "NaturadietApp/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<main id="main">
+
+    <!-- ======= Migas de Pan ======= -->
+    <section class="migas">
+      <div id="fondo" class="miga-principal">
+        <div class="container">
+            <h2>Dieta</h2>
+            <p>El cambio que tu alimentación y tu salud necesitan.<br>Comprueba tu estado y obtén un plan alimenticio.</p>
+        </div>
+      </div>
+      <div class="container">
+        <ol>
+          <li><a href="{% url 'Home' %}">Home</a></li>
+          <li>Dieta</li>
+        </ol>
+      </div>
+    </section>
+    <!-- ======= Fin Migas Pan ======= -->
+
+
+    <!-- ======= Sección Dieta ======= -->
+    <section class="contacto">
+        <div class="container">
+  
+            <div class="row mb-5">
+                
+                <div class="col-lg-4 mt-2 mt-lg-0">
+        
+                    <!-- ======= Formulario Datos Usuario  ======= -->
+                    <form method="post" role="form" class="formulario">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            
+                            <div class="col-md-3 form-group">
+                                <div>Edad</div>
+                                {{ form.edad|as_crispy_field }}
+                            </div>
+                            
+                            <div class="col-md-3 form-group">
+                                <div>Altura</div>
+                                {{ form.altura|as_crispy_field }}
+                            </div>
+                            
+                            <div class="col-md-3 form-group">
+                                <div>Peso</div>
+                                {{ form.peso|as_crispy_field }}
+                            </div>
+                            
+                        </div>
+
+                        <div class="form-row">
+                            <div class="text-center">
+                                <button class="boton" type="submit">Diagnóstico</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- ======= Fin Formulario Usuario ======= -->
+
+                </div>
+                <!-- ======= Mensaje IMC ======= -->
+                {% if estado %}
+                    {% for e in estado %}
+                        <div class="alert {{alerta}} col-lg-8 " role="alert">
+                            <h4 class="alert-heading">{{ e.tipo }}</h4>
+                            <hr>
+                            <p>Tu Índice de masa corporal (IMC) es de {{ imc }}</p>
+                            
+                            <p class="mb-0">{{ e.descripcion | safe }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-primary col-lg-8 " role="alert">
+                        <h4 class="alert-heading">Consulta tu Índice de masa corporal</h4>
+                        <hr>
+                        <p>Basándonos en los datos proporcionados, evaluaremos su estado actual, permitiendo así poder asignarle y recomendarle varias dietas nutricionales para que pueda mejorar su estilo vida.  </p>
+                    </div>
+                {% endif %}
+                <!-- ======= Fin Mensaje IMC ======= -->
+            </div>
+            
+            <!-- ======= Tabla de Dietas ======= -->
+            <div class="row">
+                {% if dietas %}
+                    {% for dieta in dietas %}
+                        <div class="col-lg-6">
+                            <h6><b>Dieta {{ forloop.counter }} ( {{ dieta.kcal.calorias }} kcal )</b></h6>
+                            <div class="card text-center border-info dieta">
+                            
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#lunes{{ dieta.id_dieta }}">Lunes</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#martes{{ dieta.id_dieta }}">Martes</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#miercoles{{ dieta.id_dieta }}">Miércoles</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#jueves{{ dieta.id_dieta }}">Jueves</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#viernes{{ dieta.id_dieta }}">Viernes</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#sabado{{ dieta.id_dieta }}">Sábado</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#domingo{{ dieta.id_dieta }}">Domingo</a>
+                                        </li>                    
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="lunes{{ dieta.id_dieta }}">
+                                            <p class="card-text">
+                                                <p>{{ dieta.lunes | safe }}</p>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="martes{{ dieta.id_dieta }}" >
+                                            <p class="card-text">
+                                                <p>{{ dieta.martes | safe }}</p>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="miercoles{{ dieta.id_dieta }}" >
+                                            <p class="card-text">
+                                                <p>{{ dieta.miercoles | safe }}</p>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="jueves{{ dieta.id_dieta }}" >
+                                            <p class="card-text">
+                                                <p>{{ dieta.jueves | safe }}</p>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="viernes{{ dieta.id_dieta }}" >
+                                            <p class="card-text">
+                                                <p>{{ dieta.viernes | safe }}</p>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="sabado{{ dieta.id_dieta }}" >
+                                            <p class="card-text">
+                                                <p>{{ dieta.sabado | safe }}</p>
+                                            </p>
+                                        </div>
+                                        <div class="tab-pane fade" id="domingo{{ dieta.id_dieta }}" >
+                                            <p class="card-text">
+                                                <p>{{ dieta.domingo | safe }}</p>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>          
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <!-- ======= Fin Tablas Dietas ======= -->
+        </div>
+    </section>
+    <!-- ======= Fin Sección Dieta ======= -->
+</main>
+
+{% endblock %}

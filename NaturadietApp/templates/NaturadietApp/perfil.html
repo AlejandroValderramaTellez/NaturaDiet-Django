@@ -1,0 +1,209 @@
+{% extends "NaturadietApp/base.html" %}
+
+
+
+{% block content %}
+
+
+    <!-- ===== Ventana Emergente ===== -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- ===== Titulo y boton de cierre ===== -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Eliminar Cuenta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <!-- ===== Mensaje ===== -->
+                <div class="modal-body text-justify">
+                    Este paso es definitivo. Todos tus datos serán borrados y no podrán ser restaurados. No tendrás acceso a nuestra tienda, ni a la sección de dietas.
+                </div>
+
+                <!-- ===== Botones ===== -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+                    <a href="{% url 'Eliminar' %}" class="btn btn-danger"role="button" aria-disabled="true">Confirmar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ===== Fin Ventana Emergente ===== -->
+
+
+
+    <main id="main">
+        
+        <!-- ===== Migas de Pan ===== -->
+        <section class="migas">
+            <div id="fondo" class="miga-principal">
+                <div class="container">
+                    <h2>Perfil</h2>
+                    <p>Puedes visualizar tus datos personales<br>o eliminar tu cuenta. </p>
+                </div>
+            </div>
+            <div class="container">
+                <ol>
+                    <li><a href="{% url 'Home' %}">Home</a></li>
+                    <li>Perfil</li>
+                </ol>
+            </div>
+        </section>
+        <!-- ===== Fin Migas de Pan ===== -->
+
+
+
+        <section class="contacto">
+            <div class="container">
+
+                <div class="row ">    
+                    <div class="col-lg-5 mt-2 mt-lg-0">
+                        
+
+                        <div class="card mt-4" >
+                            <div class="card-body">
+                                <h5 class="card-title">{{ usuario.username }}</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                            <tr class="d-flex">
+                                                <th class="col-3">Nombre</th>
+                                                <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                                            </tr>
+                                            <tr class="d-flex">
+                                                <th class="col-3">Email</th>
+                                                <td>{{ usuario.email }}</td>
+                                            </tr>
+                                            <tr class="d-flex">
+                                                <th class="col-3">Edad</th>
+                                                <td>{{ usuario.edad }}</td>
+                                            </tr>
+                                            <tr class="d-flex">
+                                                <th class="col-3">DNI</th>
+                                                <td>{{ usuario.dni }}</td>
+                                            </tr>
+                                            <tr class="d-flex">
+                                                <th class="col-3">Tlf</th>
+                                                <td>{{ usuario.telefono }}</td>
+                                            </tr>
+                                            <tr class="d-flex">
+                                                <th class="col-3">Dirección</th>
+                                                <td>{{ usuario.provincia }}, {{ usuario.localidad }}, {{ usuario.cp }}, {{ usuario.direccion }}</td>
+                                            </tr>
+                                            <tr class="d-flex">
+                                                <th class="col-3">Altura</th>
+                                                <td>{{ usuario.altura }}</td>
+                                            </tr>
+                                            <tr class="d-flex">
+                                                <th class="col-3">Peso</th>
+                                                <td>{{ usuario.peso }}</td>
+                                            </tr>
+                                            <tr class="d-flex">
+                                                <th class="col-3">Género</th>
+                                                <td>{{ usuario.genero }}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td class="text-right">
+                                                    <a class="ml-4 boton" href="{% url 'Actualizar' %}">Actualizar</a>
+                                                    <!-- ===== Modal ===== -->
+                                                    <a class="boton-rojo ml-3" data-toggle="modal" data-target="#staticBackdrop">Eliminar</a>
+                                                </td>
+                                                
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 mt-2 mt-lg-0">
+                        {% if usuario.dieta.all %}
+                            {% for dieta in usuario.dieta.all %}
+
+                                <!-- ======= Tabla de Dietas ======= -->
+                                <h6><b>Dieta {{ forloop.counter }} ( {{ dieta.kcal.calorias }} kcal )</b></h6>
+                                <div class="card text-center border-info dieta mb-5">
+                                
+                                    <div class="card-header">
+                                        <ul class="nav nav-tabs card-header-tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#lunes{{ dieta.id_dieta }}">Lunes</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#martes{{ dieta.id_dieta }}">Martes</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#miercoles{{ dieta.id_dieta }}">Miércoles</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#jueves{{ dieta.id_dieta }}">Jueves</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#viernes{{ dieta.id_dieta }}">Viernes</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#sabado{{ dieta.id_dieta }}">Sábado</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#domingo{{ dieta.id_dieta }}">Domingo</a>
+                                            </li>                    
+                                        </ul>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="lunes{{ dieta.id_dieta }}">
+                                                <p class="card-text">
+                                                    <p>{{ dieta.lunes | safe }}</p>
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="martes{{ dieta.id_dieta }}" >
+                                                <p class="card-text">
+                                                    <p>{{ dieta.martes | safe }}</p>
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="miercoles{{ dieta.id_dieta }}" >
+                                                <p class="card-text">
+                                                    <p>{{ dieta.miercoles | safe }}</p>
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="jueves{{ dieta.id_dieta }}" >
+                                                <p class="card-text">
+                                                    <p>{{ dieta.jueves | safe }}</p>
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="viernes{{ dieta.id_dieta }}" >
+                                                <p class="card-text">
+                                                    <p>{{ dieta.viernes | safe }}</p>
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="sabado{{ dieta.id_dieta }}" >
+                                                <p class="card-text">
+                                                    <p>{{ dieta.sabado | safe }}</p>
+                                                </p>
+                                            </div>
+                                            <div class="tab-pane fade" id="domingo{{ dieta.id_dieta }}" >
+                                                <p class="card-text">
+                                                    <p>{{ dieta.domingo | safe }}</p>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>          
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <!-- ======= Fin Tablas Dietas ======= -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+{% endblock %}

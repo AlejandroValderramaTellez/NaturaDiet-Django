@@ -1,0 +1,204 @@
+{% extends 'NaturadietApp/base.html' %}
+
+{% block content %}
+
+	<!-- ======= Sección de Bienvenida ======= -->
+	<section id="principal">
+		<div class="principal-container">
+			<h1>Bienvenid@</h1>
+			<h2>En NaturaDiet haremos todo lo posible para que alcances tus objetivos de salud,<br> poniendo a tu alcance a los mejores profesionales y nutricionistas online.</h2>
+			<a href="{% url 'Dieta' %}" class="btn-get-started scrollto">Empecemos</a>
+		</div>
+	</section>
+	<!-- ======= Fin Sección de Bienvenida ======= -->
+
+
+  <main id="main">
+        <!-- ======= Mensajes ======= -->
+		<div class="container">
+			<div class="col-lg-12 mt-5 mt-lg-0 ">
+				{% if messages %}
+					{% for message in messages %}
+						<div class="alert alert-warning alert-dismissible fade show {{ message.tags }} text-center mensaje" role="alert">
+							{{ message }}
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+		<!-- ======= Fin Mensajes ======= -->
+
+
+
+		<!-- ======= Sección Tienda ======= -->
+		<section id="tienda" class="tienda">
+			<div class="container" >
+
+				<div class="text-center">
+					<h3>Productos</h3>
+					<p> Tenemos a nuestra disposición una variedad de productos sanos, ecológicos y naturales<br> que facilitarán el seguimiento de nuestras dietas.</p>
+					<a class="tienda-btn" href="{% url 'Productos' %}">Míralos</a>
+				</div>
+
+			</div>
+		</section>
+		<!-- ======= Fin Sección Tienda ======= -->
+
+
+		<!-- ======= Sección Noticias ======= -->
+		<section class="seccion-bg ">
+			<div class="container">
+
+				<div class="seccion-titulo pt-5" >
+					<h2>Noticias</h2>
+				</div>
+			
+				<section id="blog" class=" pb-5 blog">
+					<div class="container">
+						<div class="row">
+						
+							<div class="col-7 text-right">
+								<a class="btn btn-outline-success mb-3 mr-4" href="#noticias" role="button" data-slide="prev">
+									<i class="icofont-arrow-left"></i>
+								</a>
+								<a class="btn btn-outline-success mb-3 mr-4" href="#noticias" role="button" data-slide="next">
+									<i class="icofont-arrow-right"></i>
+								</a>
+							</div>
+
+							<div class="col-12">
+								<div id="noticias" class="carousel slide" data-ride="carousel">
+			
+									<div class="carousel-inner">
+									
+										<div class="carousel-item active">
+											<div class="row">
+												{% for n1 in noticias1 %}
+													<div class="col-lg-4  col-md-6 d-flex align-items-stretch" >
+					
+														<div class="card entrada">
+															<div class="entrada-img">
+																<img src="{{ n1.imagen.url }}" alt="" class="img-fluid">
+															</div>
+												
+															<div class="card-body">
+																<h2 class="entrada-titulo">
+																	<a href="{% url 'Noticia' n1.id_noticia %}">{{ n1.titulo }}</a>
+																</h2>
+								
+																<div class="entrada-meta">
+																	<ul>
+																		<li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="">{{ n1.usuario }}</a></li>
+																		<li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="">{{ n1.created | date:"d M, Y" }}</a></li>
+																	</ul>
+																</div>
+								
+																<div class="entrada-contenido">
+																	<p>{{ n1.subtitulo }}</p>
+																</div>
+
+															</div>
+								
+															<div class="card-footer">
+																<div class="read-more">
+																	<a  href="{% url 'Noticia' n1.id_noticia %}">Leer más</a>
+																</div>
+															</div>
+														</div>
+												
+													</div>
+												{% endfor%}
+											</div>
+										</div>
+
+										<div class="carousel-item">
+											<div class="row">
+												{% for n2 in noticias2 %}
+													<div class="col-lg-4  col-md-6 d-flex align-items-stretch">
+							
+														<div class="card entrada">
+															<div class="entrada-img">
+																<img src="{{ n2.imagen.url }}" alt="" class="img-fluid">
+															</div>
+														
+															<div class="card-body">
+																<h2 class="entrada-titulo">
+																	<a href="{% url 'Noticia' n2.id_noticia %}">{{ n2.titulo }}</a>
+																</h2>
+											
+																<div class="entrada-meta">
+																	<ul>
+																		<li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="">{{ n2.usuario }}</a></li>
+																		<li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="">{{ n2.created | date:"d M, Y" }}</a></li>
+																	</ul>
+																</div>
+											
+																<div class="entrada-contenido">
+																	<p>{{ n2.subtitulo }}</p>
+																</div>
+															</div>
+										
+															<div class="card-footer">
+																<div class="read-more">
+																	<a  href="{% url 'Noticia' n2.id_noticia %}">Leer más</a>
+																</div>
+															</div>
+														</div>
+														
+													</div>
+												{% endfor%}
+											</div>
+										</div>
+
+										<div class="carousel-item">
+										
+											<div class="row">
+												{% for n3 in noticias3 %}
+													<div class="col-lg-4  col-md-6 d-flex align-items-stretch" >
+								
+														<div class="card entrada">
+															<div class="entrada-img">
+																<img src="{{ n3.imagen.url }}" alt="" class="img-fluid">
+															</div>
+															
+															<div class="card-body">
+																<h2 class="entrada-titulo">
+																	<a href="{% url 'Noticia' n3.id_noticia %}">{{ n3.titulo }}</a>
+																</h2>
+											
+																<div class="entrada-meta">
+																	<ul>
+																		<li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="">{{ n3.usuario }}</a></li>
+																		<li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="">{{ n3.created | date:"d M, Y" }}</a></li>
+																	</ul>
+																</div>
+											
+																<div class="entrada-contenido">
+																	<p>{{ n3.subtitulo }}</p>
+																</div>
+															</div>
+											
+															<div class="card-footer">
+																<div class="read-more">
+																	<a  href="{% url 'Noticia' n3.id_noticia %}">Leer más</a>
+																</div>
+															</div>
+														</div>
+													</div>
+												{% endfor%}	
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- ======= Sección Noticias ======= -->
+			</div>
+		</section>
+	</main>
+{% endblock %}

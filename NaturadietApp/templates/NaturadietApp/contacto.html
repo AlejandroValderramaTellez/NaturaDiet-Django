@@ -1,0 +1,113 @@
+{% extends 'NaturadietApp/base.html' %}
+
+{% block content %}
+
+<main id="main">
+
+    <!-- ======= Migas de Pan ======= -->
+    <section class="migas">
+      	<div id="fondo" class="miga-principal">
+			<div class="container">
+				<h2>Contacto</h2>
+				<p>Muchas gracias por visitar NaturaDiet.<br> Si quieres contactarme puedes rellenar este formulario. </p>
+			</div>
+      	</div>
+		<div class="container">
+			<ol>
+				<li><a href="{% url 'Home' %}">Home</a></li>
+				<li>Contacto</li>
+			</ol>
+		</div>
+    </section>
+    <!-- ======= Fin Migas Pan ======= -->
+
+    <!-- ======= Sección Contacto ======= -->
+    <section class="contacto">
+      	<div class="container">
+
+        	<div class="row mt-5">
+				<div class="col-lg-4">
+
+					<!-- ======= Sección Info ======= -->
+					<div class="info">
+						<div class="address">
+							<i class="icofont-google-map"></i>
+							<h4>Localización:</h4>
+							<p>Vía Augusta 29, 1º 08006 Sevilla</p>
+						</div>
+
+						<div class="email">
+							<i class="icofont-envelope"></i>
+							<h4>Email:</h4>
+							<p>Naturadiet2021@gmail.com</p>
+						</div>
+
+						<div class="tlf">
+							<i class="icofont-phone"></i>
+							<h4>Teléfono:</h4>
+							<p>+34 666 555 666</p>
+						</div>
+					</div>
+					<!-- ======= Fin Sección Info ======= -->
+				</div>
+
+				<div class="col-lg-8 mt-5 mt-lg-0">
+
+					<!-- ======= Mensaje ======= -->
+					{% if messages %}
+						{% for message in messages %}
+							{% if message == menssage.success %}
+								<div class="alert alert-success alert-dismissible fade show {{ message.tags }} text-center" role="alert">
+									{{ message }}
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							{% else %}
+								<div class="alert alert-danger alert-dismissible fade show {{ message.tags }} text-center" role="alert">
+									{{ message }}
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+					<!-- ======= Fin Mensaje ======= -->
+		
+					<!-- ======= Formulario Contacto ======= -->
+					<form action="{% url 'Contacto' %}" method="POST" role="form" class="formulario">
+						{% csrf_token %}
+						<div class="form-row">
+							<div class="col-md-6 form-group">
+								<input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" required/>
+							</div>
+							<div class="col-md-6 form-group">
+								<input type="email" class="form-control" name="email" id="email" placeholder="Email" required/>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<input type="text" class="form-control" name="asunto" id="asunto" placeholder="Asunto" required/>
+						</div>
+
+						<div class="form-group">
+							<textarea class="form-control" name="mensaje" rows="5" placeholder="Menjase" required></textarea>
+						</div>
+
+						<div class="text-center">
+							<button class="boton" type="submit">Enviar Mensaje</button>
+						</div>
+					</form>
+					<!-- ======= Fin Formulario Contacto ======= -->
+					
+				</div>
+        	</div>
+      	</div>
+    </section>
+    <!-- ======= Fin Sección Contacto ======= -->
+
+</main>
+
+  {% endblock %}
+  

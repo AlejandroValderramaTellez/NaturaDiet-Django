@@ -1,0 +1,97 @@
+{% extends "NaturadietApp/base.html" %}
+
+{% block content %}
+<main id="main">
+    
+    <!-- ======= Migas de Pan ======= -->
+    <section class="migas">
+		<div id="fondo" class="miga-principal">
+				<div class="container">
+					<h2>{{categoria.nombre}}</h2>
+					<p>Todos los Productos sobre {{categoria.nombre}}<br> en nuestro sitio a tu alcance. </p>
+				</div>
+		</div>
+		<div class="container">
+			<ol>
+				<li><a href="{% url 'Home' %}">Home</a></li>
+				<li><a href="{% url 'Productos' %}">Productos</a></li>
+				<li>{{categoria.nombre}}</li>
+			</ol>
+		</div>
+    </section>
+    <!-- ======= Fin Migas Pan ======= -->
+
+    <!-- ======= Sección Blog ======= -->
+    <section id="blog" class="blog">
+      	<div class="container">
+
+			<!-- ======= Mensaje ======= -->
+			{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-warning alert-dismissible fade show {{ message.tags }} text-center" role="alert">
+					{{ message }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				{% endfor %}
+			{% endif %}
+			<!-- ======= Fin Mensaje ======= -->
+
+			<!-- ======= Categorias Productos ======= -->
+			<div class="row justify-content-center categoria">
+				<div class="col-lg-8 col-md-6 d-flex justify-content-around">
+					{% for categoria in categorias %}
+						<a class="btn btn-outline-secondary" href="{% url 'CategoriaProducto' categoria.nombre %}" role="button">{{ categoria.nombre }}</a>
+					{% endfor %}
+				</div>
+			</div>
+			<!-- ======= Fin Categorias Productos ======= -->
+
+        	<hr class="mb-4 mt-0 ">
+
+			<!-- ======= Productos ======= -->
+			<div class="row">
+				{% for producto in productos %}
+					<div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+
+						<div class="card entrada">
+							<div class="entrada-img">
+								<img src="{{ producto.imagen.url }}" alt="" class="img-fluid">
+							</div>
+						
+							<div class="card-body">
+								<h2 class="entrada-titulo">
+									<a>{{ producto.nombre }}</a>
+								</h2>
+
+								<div class="entrada-meta">
+									<ul>
+										<li class="d-flex align-items-center"><i class="icofont-tags"></i> <a href="{% url 'CategoriaProducto' producto.categoria %}">{{ producto.categoria }}</a></li>
+									</ul>
+								</div>
+
+								<div class="producto-contenido">
+									<hr />
+									<p>{{ producto.descripcion | safe}}</p>
+								</div>
+							</div>
+
+							<div class="card-footer">
+								<div class="read-more">
+									<p><button type="button" class="btn btn-outline-secondary">{{ producto.precio }}&nbsp;€</button></p>
+									<a  class="btnAgregar" href="{% url 'Agregar' producto.id_producto %}">Agregar</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<!-- ======= Fin Productos ======= -->
+      	</div>
+    </section>
+
+</main>
+
+
+{% endblock %}

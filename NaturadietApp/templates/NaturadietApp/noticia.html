@@ -1,0 +1,108 @@
+{% extends "NaturadietApp/base.html" %}
+
+{% block content %}
+
+<main id="main">
+
+    <!-- ======= Migas de Pan ======= -->
+    <section class="migas">
+      <div id="fondo" class="miga-principal">
+        <h2>Noticia</h2>
+        <p>Artículos sobre nutrición, salud y deporte. <br>Artículos para aprender a llevar un estilo de vida saludable. </p>
+        </div>
+      </div>
+      <div class="container">
+        <ol>
+            <li><a href="{% url 'Home' %}">Home</a></li>
+            <li><a href="{% url 'Noticias' %}">Noticias</a></li>
+            <li>{{ noticia.titulo }}</li>
+        </ol>
+      </div>
+    </section>
+    <!-- ======= Fin Migas Pan ======= -->
+
+
+    <section id="blog" class="blog">
+        <div class="container">
+
+            <div class="row">
+
+                <!-- ======= Sección Notica ======= -->
+                <div class="col-lg-8 entries">
+                    <article class="entrada entrada-unica">
+
+                        <div class="entrada-img">
+                            <img src="{{ noticia.imagen.url }}" alt="" class="img-fluid">
+                        </div>
+
+                        <h2 class="entrada-titulo">
+                            <span>{{ noticia.titulo }}</span>
+                        </h2>
+
+                        <!-- ======= Info Noticia ======= -->
+                        <div class="entrada-meta">
+                            <ul>
+                            <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="">{{ noticia.usuario }}</a></li>
+                            <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="">{{ noticia.created | date:"d M, Y" }}</a></li>
+                            <li class="d-flex align-items-center"><i class="icofont-tags"></i> <a href="{% url 'Categoria' noticia.categoria %}">{{ noticia.categoria }}</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- ======= Contenido Noticia ======= -->
+                        <div class="contenido">
+                            {{ noticia.contenido | safe }}
+                        </div>
+
+                    </article>
+                    <!-- ======= Fin Noticia ======= -->
+                    
+
+                    <!-- ======= Autor Noticia ======= -->
+                    <div class="blog-autor clearfix">
+                        <h4 class="mb-2">{{ noticia.usuario.first_name }}</h4>
+                        <p>{{ noticia.usuario.descripcion }}</p>
+                    </div>
+
+                </div>
+                <!-- ======= Fin Sección Notica ======= -->
+
+
+                <!-- ======= Seccion Sidebar ======= -->
+                <div class="col-lg-4">
+                    <div class="sidebar">
+
+                        <!-- ======= Categorias ======= -->
+                        <h3 class="sidebar-titulo">Categorias</h3>
+                        <div class="sidebar-item categorias">
+                            <ul>
+                                {% for categoria in categorias %}
+                                <li><a href="{% url 'Categoria' categoria.nombre %}">{{ categoria.nombre }}</a></li>
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                        <!-- ======= Fin Categorias ======= -->
+
+                        <!-- ======= Seccion Recientes ======= -->
+                        <h3 class="sidebar-titulo">Recientes</h3>
+                        <div class="sidebar-item posts-reciente">
+                            {% for noticia in noticias %}
+                            <div class="post-item clearfix">
+                                <img src="{{ noticia.imagen.url }}" alt="">
+                                <h4><a href="{% url 'Noticia' noticia.id_noticia %}">{{ noticia.titulo }}</a></h4>
+                                <time datetime="{{ noticia.created | date:'d M, Y' }}">{{ noticia.created | date:"d M, Y" }}</time>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- ======= Fin Sidebar ======= -->
+                    </div>
+                </div>
+                <!-- ======= Fin Sidebar ======= -->
+
+            </div>
+        </div>
+    </section>
+    
+</main>
+
+{% endblock %}

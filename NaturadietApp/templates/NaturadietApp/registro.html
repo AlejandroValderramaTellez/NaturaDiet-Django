@@ -1,0 +1,145 @@
+{% extends 'NaturadietApp/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <main id="main">
+
+        <!-- ======= Migas de Pan ======= -->
+        <section class="migas">
+            <div id="fondo" class="miga-principal">
+                <div class="container">
+                    <h2>Registro</h2>
+                    <p>Estás a pocos pasos de convertirte en Realfooder. </p>
+                </div>
+            </div>
+            <div class="container">
+                <ol>
+                    <li><a href="{% url 'Home' %}">Home</a></li>
+                    <li>Registro</li>
+                </ol>
+            </div>
+        </section>
+        <!-- ======= Fin Migas ======= -->
+
+        
+        <section class="contacto">
+            <div class="container">
+
+                <div class="col-lg-9 mt-5 mt-lg-0 ">
+                
+                    <!-- ======= Mensaje ======= -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-info alert-dismissible fade show {{ message.tags }} text-center" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <!-- ======= Mensaje ======= -->
+
+
+                    <!-- ======= Formulario ======= -->
+                    <form method="POST" role="form" class="formulario">
+                        {% csrf_token %}
+
+                        <!-- ======= Usuario ======= -->
+                        <h5 class="label mt-5">Usuario</h5>
+                        <hr class="hr">
+
+                        <div class="form-row">
+                            <div class="col-md-6 form-group">
+                                {{ form.username|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6 form-group">
+                                {{ form.password1|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                {{ form.password2|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <!-- ======= Datos Personales ======= -->
+                        <h5 class="label mt-5">Datos Personales</h5>
+                        <hr class="hr">
+
+                        <div class="form-row">
+                            <div class="col-md-6 form-group">
+                                {{ form.first_name|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                {{ form.last_name|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-2 form-group">
+                                {{ form.edad|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-5 form-group">
+                                {{ form.dni|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-5 form-group">
+                                {{ form.telefono|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-2 form-group">
+                                {{ form.provincia|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-2 form-group">
+                                {{ form.localidad|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-2 form-group">
+                                {{ form.cp|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                {{ form.direccion|as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 form-group">
+                                {{ form.altura|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-4 form-group">
+                                {{ form.peso|as_crispy_field }}
+                            </div>
+
+                            <div class="col-md-4 form-group">
+                                {{ form.genero|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        <div >
+                            <button class="mt-4 boton" type="submit">Crear Cuenta</button>
+                        </div>
+                    </form>
+                    <!-- ======= Fin Formulario ======= -->
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+{% endblock %}

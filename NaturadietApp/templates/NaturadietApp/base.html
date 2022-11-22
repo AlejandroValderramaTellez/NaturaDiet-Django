@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	{% load static %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- Estilos generales -->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<!-- Fuentes Google -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<!-- Iconos -->
+	<link href="{% static 'css/icofont/icofont.min.css' %}" rel="stylesheet">
+	<title>NaturaDiet</title>
+</head>
+  
+<body>
+
+	<!-- ======= Cabecera ======= -->
+	<header id="header" class="fixed-top">
+
+		<div class="container">
+
+			<!-- ======= Barra Navegación ======= -->
+			<nav class="navbar navbar-expand-lg navbar-light  bg-white ">
+				
+				<h1 class="text-light"><a class="navbar-brand" href="{% url 'Home' %}">NaturaDiet</a></h1>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse nav-menu bg-white" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto"></ul>
+					<ul class="navbar-nav">
+						<li class="nav-item {% if request.path == '/' %} active {% endif %}">
+							<a  href="{% url 'Home' %}">Home</a>
+						</li>
+						<li class="nav-item {% if request.path == '/noticias' %} active {% endif %}">
+							<a  href="{% url 'Noticias' %}">Noticias</a>
+						</li>
+						<li class="nav-item {% if request.path == '/productos' %} active {% endif %}">
+							<a  href="{% url 'Productos' %}">Productos</a>
+						</li>
+						<li class="nav-item {% if request.path == '/dieta' %} active {% endif %}">
+							<a  href="{% url 'Dieta' %}">Dieta</a>
+						</li>
+						<li class="nav-item {% if request.path == '/contacto' %} active {% endif %}">
+							<a  href="{% url 'Contacto' %}">Contacto</a>
+						</li>
+					
+						<!-- ======= Botón Usuario ======= -->
+						{% if request.user and  request.user.is_authenticated %}
+							<li class="get-started">
+								<div class="dropdown">
+									<a class="dropdown-toggle" href="{% url 'Perfil' %}" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										{{ user.username }}
+									</a>
+								
+									<div class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+										<a class="dropdown-item drop" href="{% url 'Perfil' %}">Perfil</a>
+										<a class="dropdown-item drop" href="{% url 'Pedidos' %}">Pedidos</a>
+										{% if request.user.is_staff %}
+											<a class="dropdown-item drop" href="{% url 'admin:index' %}">Panel Admin</a>
+										{% endif %}
+									</div>
+								</div>
+							</li>
+
+							<li class="registrar">
+								<a href="{% url 'Logout' %}">Logout</a>
+							</li>
+
+							<!-- ======= Botón Carrito ======= -->
+							<li class="carrito">
+								<a href="{% url 'Carro' %}"><i class="icofont-cart-alt"></i></a>
+							</li>
+
+								{% if request.session.carro|length > 0 %}
+									<li>
+										<span class="badge badge-danger badge-pill">{{ unidades }}</span>
+									</li>
+								{% endif %}
+
+						{% else %}
+							<li class="get-started">
+								<a href="{% url 'Login' %}">Login</a>
+							</li>
+							<li class="registrar">
+								<a href="{% url 'Registro' %}">Regístrate</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</nav>
+			<!-- ======= Fin Barra Navegación ======= -->
+		</div>
+
+	</header>
+	<!-- ======= Fin Cabecera ======= -->
+
+
+	{% block content %}
+
+	{% endblock %}
+
+
+  
+  	<!-- ======= Footer ======= -->
+  	<footer id="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row d-flex justify-content-between">
+
+					<!-- ======= Sección Naturadiet ======= -->
+					<div class="col-lg-4 col-md-6 footer-info">
+						<h3>NaturaDiet</h3>
+						<p>Nos dedicamos a una gran diversidad de tareas relacionadas con diversos campos de la nutrición, como la investigación, la nutrición comunitaria y divulgación de consejos dietéticos respaldados por la ciencia, a la docencia, y a llevar unos hábitos alimentarios saludables a todos los ámbitos posibles, como centros escolares, tercera edad y eventos.</p>
+					</div>
+
+					<!-- ======= Enlaces Interés ======= -->
+					<div class="col-lg-2 col-md-6 footer-links">
+						<h4>Enláces de interés</h4>
+						<ul>
+							<li><a href="{% url 'Home' %}">Home</a></li>
+							<li><a href="{% url 'Noticias' %}">Noticias</a></li>
+							<li><a href="{% url 'Productos' %}">Productos</a></li>
+							<li><a href="{% url 'Dieta' %}">Dietas</a></li>
+							<li><a href="{% url 'SobreMi' %}">Sobre Mí</a></li>
+						</ul>
+					</div>
+
+					<!-- ======= Contactanos ======= -->
+					<div class="col-lg-4 col-md-6 footer-contacto">
+						<h4>Contactanos</h4>
+						<p>
+							Vía Augusta 29, 1º 08006  <br>
+							Sevilla<br>
+							España <br>
+							<strong>Teléfono:</strong> +34 655 565 656<br>
+							<strong>Email:</strong> Naturadiet2021@gmail.com<br>
+						</p>
+
+						<div class="social-links">
+							<a href="#" class="twitter"><i class="icofont-twitter"></i></a>
+							<a href="#" class="facebook"><i class="icofont-facebook"></i></a>
+							<a href="#" class="instagram"><i class="icofont-instagram"></i></a>
+							<a href="#" class="google-plus"><i class="icofont-skype"></i></a>
+							<a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
+						</div>
+
+					</div>
+					<!-- ======= Fin Contactanos ======= -->
+				</div>
+			</div>
+    	</div>
+
+		<!-- ======= Copyright ======= -->
+		<div class="container">
+			<div class="copyright">
+				&copy; Copyright <strong>NaturaDiet</strong>. All Rights Reserved
+			</div>
+			<div class="credits">
+				Diseñado por <a href="#">Alejandro Valderrama Téllez</a>
+			</div>
+		</div>
+  	</footer>
+  	<!-- ======= Fin Footer ======= -->
+
+  	<div class="arriba"><i class="icofont-simple-up"></i></div>
+
+	<!-- ======= Archivo JS Principal Plantilla ======= -->
+	<script src="{% static 'js/main.js' %}"></script>
+
+	<!-- ======= JS Bootstrap ======= -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+{% extends 'NaturadietApp/base.html' %}
+
+{% block content %}
+
+
+    <main id="main">
+
+        <!-- ======= Migas de Pan ======= -->
+        <section class="migas">
+
+            <div id="fondo" class="miga-principal">
+                <div class="container">
+                    <h2>Pedidos</h2>
+                    <p>Compureba todos tus pedidos realizados. </p>
+                </div>
+            </div>
+
+            <div class="container">
+                <ol>
+                    <li><a href="{% url 'Home' %}">Home</a></li>
+                    <li><a href="{% url 'Perfil' %}">Perfil</a></li>
+                    <li>Pedidos</li>
+                </ol>
+            </div>
+
+        </section>
+        <!-- ======= Fin Migas ======= -->
+    </main>
+
+
+    <section id="blog" class="blog">
+        <div class="container">
+            
+            <!-- ======= Lista Pedidos ======= -->
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+
+                    <h5 class="label mt-5">Pedidos</h6>
+                    <hr class="hr">
+
+                    {% if pedidos %}
+                        <div class="accordion mb-5" id="accordionExample">
+                            {% for pedido, facturas in pedidos %}
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link btn-block text-left text-decoration-none" type="button" data-toggle="collapse" data-target="#collapse{{ pedido.id_pedido }}" aria-expanded="true" aria-controls="collapse{{ pedido.id_pedido }}">
+                                                <ul class="nav justify-content-between ">
+
+                                                    <!-- ======= Nº Pedido ======= -->
+                                                    <li class="nav-item">
+                                                        <div class="text-dark align-middle"><i class="icofont-file-alt  icofont-2x "></i> Orden nº {{ pedido.id_pedido }}</div>
+                                                    </li>
+
+                                                    <!-- ======= Fecha Pedido ======= -->
+                                                    <li class="nav-item">
+                                                        <div class="text-dark align-middle ">{{ pedido.fecha | date:"d M, Y"}}</div>
+                                                    </li>
+
+                                                    <!-- ======= Icono Entrega ======= -->
+                                                    <li  class="nav-item">
+                                                        {% if pedido.entregado is True %}
+                                                            <div class="text-dark align-middle"><i  class="icofont-check-alt icofont-2x text-success"></i></div>
+                                                        {% elif pedido.entregado is False %}
+                                                            <div class="text-dark align-middle"><i class="icofont-close-line icofont-lg text-danger"></i></div>
+                                                        {% endif %}
+                                                    </li>
+                                                </ul>
+                                            </button>
+                                        </h2>
+                                    </div>
+                                
+                                    <div id="collapse{{ pedido.id_pedido }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-borderless">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Producto</th>
+                                                            <th class="text-center" scope="col">Cantidad</th>
+                                                            <th class="text-right" scope="col">Importe</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for factura in facturas %}
+                                                        <tr>
+                                                        <td >{{ factura.producto }}</td>
+                                                        <td class="text-center">{{ factura.cantidad}}</td>
+                                                        <td class="text-right">{{ factura.importe}} €</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td class="border-top border-success text-right" colspan="2">TOTAL:</td>
+                                                            <td class="border-top border-success text-right table-success" > {{ pedido.total}} €</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-danger text-center aviso">
+                            <div>Sin Pedidos</div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

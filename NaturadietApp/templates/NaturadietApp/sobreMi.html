@@ -1,0 +1,57 @@
+{% extends "NaturadietApp/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<main id="main">
+        
+    <!-- ======= Migas de Pan ======= -->
+    <section class="migas">
+    <div id="fondo" class="miga-principal">
+        <div class="container">
+            <h2>Sobre Mi</h2>
+            <p>Aquí encontrarás información sobre mí. </p>
+        </div>
+    </div>
+    <div class="container">
+        <ol>
+        <li><a href="{% url 'Home' %}">Home</a></li>
+        <li>Sobre Mi</li>
+        </ol>
+    </div>
+    </section>
+    <!-- ===== Fin Migas de Pan ===== -->
+</main>
+
+    <section id="blog" class="blog">
+        <div class="container d-flex justify-content-center">
+            <div class="col-lg-8  ">
+
+                <div class="card mb-3 caja"  style="max-width: 1000px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img id="foto" class="rounded-circle " src="{% static 'img/Alejandro.png' %}" alt="Alumno">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body" >
+                                <h3 class="card-title mt-3 ml-4">¡Hola!</h3> 
+                                <p class="card-text ml-4 text-justify">
+                                    Me llamo Alejandro Valderrama, tengo treinta y cuatro años y soy alumno del I.E.S Julio Verne. 
+                                    Estoy en segundo de Desarrollo de Aplicaciones Web (DAW).
+                                    <br><br>No tenía ningún conocimiento de programación antes de realizar estos estudios, 
+                                    pero con ganas y motivación, tan solo tres años después me encuentro  presentado mi proyecto 
+                                    integrado de final del ciclo, con la satisfacción de comprobar todo lo que he aprendido en 
+                                    tan poco tiempo.<br><br> Gracias por visitar mi web y espero que les guste.</p>
+                                <p class="card-text ml-4"><small class="text-muted">DAW - Curso 2020 / 2021</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

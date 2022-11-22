@@ -1,0 +1,85 @@
+{% extends "NaturadietApp/base.html" %}
+
+{% block content %}
+<main id="main">
+
+    <!-- ======= Migas de Pan ======= -->
+    <section class="migas">
+		<div id="fondo" class="miga-principal">
+				<div class="container">
+					<h2>{{ categoria.nombre }}</h2>
+					<p>Noticias sobre {{ categoria.nombre }}. <br>Artículos para aprender a llevar un estilo de vida saludable. </p>
+				</div>
+		</div>
+		<div class="container">
+			<ol>
+				<li><a href="{% url 'Home' %}">Home</a></li>
+				<li><a href="{% url 'Noticias' %}">Noticias</a></li>
+				<li>{{ categoria.nombre }}</li>
+			</ol>
+		</div>
+    </section>
+    <!-- ======= Fin Migas de Pan ======= -->
+
+
+
+	<!-- ======= Categorias Noticias ======= -->
+	<div class="row justify-content-center categoria">
+		<div class="col-lg-8 col-md-6 d-flex justify-content-center">
+			{% for categoria in categorias %}
+				<a class="btn btn-outline-secondary mr-3 ml-3" href="{% url 'Categoria' categoria.nombre %}" role="button">{{ categoria.nombre }}</a>
+			{% endfor %}
+		</div>
+	</div>
+	<!-- ======= Fin Categorias Noticias ======= -->
+
+
+
+    <!-- ======= Noticias Categoria ======= -->
+    <section id="blog" class="blog">
+		<div class="container">
+
+			<hr class="mb-4 mt-0 ">
+
+			<div class="row">
+				{% for noticia in noticias %}
+					<div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+
+						<div class="card entrada">
+								<div class="entrada-img">
+									<img src="{{ noticia.imagen.url }}" alt="" class="img-fluid">
+								</div>
+							
+							<div class="card-body">
+								<h2 class="entrada-titulo">
+									<a href="{% url 'Noticia' noticia.id_noticia %}">{{ noticia.titulo }}</a>
+								</h2>
+
+								<div class="entrada-meta">
+									<ul>
+										<li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">{{ noticia.usuario }}</a></li>
+										<li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="{{ noticia.created | date:'d M, Y' }}"></time>{{ noticia.created | date:"d M, Y" }}</time></a></li>
+									</ul>
+								</div>
+
+								<div class="entrada-contenido">
+									<p>{{ noticia.subtitulo }}</p>
+								</div>
+							</div>
+
+							<div class="card-footer">
+								<div class="read-more">
+									<a  href="{% url 'Noticia' noticia.id_noticia %}">Leer más</a>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+    </section>
+	<!-- ======= Fin Noticias Categoria ======= -->
+
+</main>
+{% endblock %}
