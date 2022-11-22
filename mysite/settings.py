@@ -162,4 +162,4 @@ EMAIL_HOST_PASSWORD = os.environ["EMAILPASSWORD"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ['https://*.https://naturadiet-django-production-6104.up.railway.app/', 'https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.naturadiet-django-production-6104.up.railway.app/', 'https://*.127.0.0.1']
